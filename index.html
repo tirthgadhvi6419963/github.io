@@ -2,33 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>💘 For AAyushi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>💘 For Aayushi</title>
   <meta name="theme-color" content="#ff4d6d" />
   <style>
     :root{
-      --bg1:#ff4d6d; --bg2:#ffb3c7; --card:#ffffffde;
-      --text:#1f1f1f; --muted:#5b5b5b;
-      --accent:#ff2d55; --accent2:#ff7aa2;
+      --bg1:#ffebf3; --bg2:#ffe6cc;
+      --card:rgba(255,255,255,.82);
+      --text:#1f1f1f;
+      --shadow:0 18px 50px rgba(0,0,0,.14);
+      --radius:26px; --pill:999px;
+      --pink1:#ff4d8d; --pink2:#ff2d55;
+      --dark:#111;
     }
     *{box-sizing:border-box}
     body{
       margin:0; min-height:100vh; display:grid; place-items:center;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color:var(--text);
-      background: radial-gradient(1200px 800px at 20% 10%, #fff 0%, rgba(255,255,255,0) 55%),
-                  radial-gradient(900px 700px at 80% 0%, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 60%),
-                  linear-gradient(135deg,var(--bg1),var(--bg2));
+      background:
+        radial-gradient(900px 700px at 25% 15%, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 60%),
+        radial-gradient(900px 700px at 75% 0%, rgba(255,255,255,.75) 0%, rgba(255,255,255,0) 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
       overflow:hidden;
     }
 
     /* Floating hearts background */
     .heart{
       position:absolute; width:18px; height:18px; transform: rotate(45deg);
-      background: rgba(255,255,255,0.75);
+      background: rgba(255,255,255,0.85);
       animation: floatUp linear infinite;
-      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.12));
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.10));
       border-radius:4px;
+      pointer-events:none;
     }
     .heart:before,.heart:after{
       content:""; position:absolute; width:18px; height:18px; background: inherit;
@@ -36,72 +42,86 @@
     }
     .heart:before{ left:-9px; top:0 }
     .heart:after{ top:-9px; left:0 }
+
     @keyframes floatUp{
-      from{ transform:translateY(40vh) translateX(0) rotate(45deg); opacity:0 }
+      from{ transform:translateY(45vh) translateX(0) rotate(45deg); opacity:0 }
       10%{opacity:1}
-      to{ transform:translateY(-120vh) translateX(70px) rotate(45deg); opacity:0 }
+      to{ transform:translateY(-120vh) translateX(80px) rotate(45deg); opacity:0 }
     }
 
     .wrap{
       position:relative;
-      width:min(520px, 92vw);
-      padding:28px 22px;
-      border-radius:26px;
+      width:min(560px, 92vw);
+      padding:30px 22px;
+      border-radius: var(--radius);
       background: var(--card);
       backdrop-filter: blur(10px);
-      box-shadow: 0 18px 60px rgba(0,0,0,0.18);
-      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.7);
       text-align:center;
     }
     .badge{
       display:inline-flex; gap:8px; align-items:center;
-      padding:8px 12px; border-radius:999px;
-      background: rgba(255,45,85,0.10);
-      color: var(--accent);
-      font-weight:600;
+      padding:9px 12px; border-radius: var(--pill);
+      background: rgba(255,45,85,0.12);
+      color: var(--pink2);
+      font-weight:700;
       letter-spacing:.2px;
     }
     h1{
-      margin:14px 0 8px;
-      font-size: clamp(28px, 4vw, 40px);
-      line-height:1.1;
+      margin:14px 0 10px;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height:1.08;
+      color: var(--dark);
     }
     p{
       margin:0 auto 18px;
-      max-width: 44ch;
-      color: var(--muted);
-      font-size: 15.5px;
-      line-height:1.5;
+      max-width: 50ch;
+      color: rgba(20,20,20,0.70);
+      font-size: 15.6px;
+      line-height:1.55;
     }
+
+    .btnRow{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top: 10px;}
 
     .btn{
       appearance:none; border:none; cursor:pointer;
-      margin-top: 10px;
       padding: 14px 18px;
-      width: min(340px, 90%);
+      width: min(260px, 88vw);
       border-radius: 16px;
       font-size: 18px;
-      font-weight: 800;
+      font-weight: 900;
       color: white;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 14px 30px rgba(255,45,85,0.35);
+      background: linear-gradient(135deg, var(--pink2), var(--pink1));
+      box-shadow: 0 16px 32px rgba(255,45,85,0.30);
       transform: translateY(0);
       transition: transform .12s ease, box-shadow .12s ease;
       position:relative;
       overflow:hidden;
     }
-    .btn:hover{ transform: translateY(-1px); box-shadow: 0 18px 36px rgba(255,45,85,0.42); }
-    .btn:active{ transform: translateY(1px); box-shadow: 0 10px 22px rgba(255,45,85,0.30); }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 20px 40px rgba(255,45,85,0.38); }
+    .btn:active{ transform: translateY(1px); box-shadow: 0 12px 26px rgba(255,45,85,0.25); }
     .btn:focus-visible{ outline: 3px solid rgba(255,255,255,.9); outline-offset: 3px; }
-
     .btn::after{
       content:"";
       position:absolute; inset:-40%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.45), rgba(255,255,255,0) 55%);
-      transform: translateX(-40%) rotate(10deg);
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), rgba(255,255,255,0) 60%);
+      transform: translateX(-42%) rotate(10deg);
       transition: transform .5s ease;
+      pointer-events:none;
     }
     .btn:hover::after{ transform: translateX(5%) rotate(10deg); }
+
+    /* The "No" button exists but is intentionally hard to click */
+    .btnNo{
+      background: rgba(17,17,17,0.10);
+      color: rgba(17,17,17,0.65);
+      box-shadow: none;
+      border: 1px solid rgba(0,0,0,0.08);
+      font-weight: 800;
+    }
+    .btnNo:hover{ transform: none; box-shadow:none; }
+    .btnNo::after{ display:none; }
 
     .smallRow{
       margin-top: 14px;
@@ -112,33 +132,30 @@
       padding: 9px 12px;
       border-radius: 12px;
       border: 1px solid rgba(0,0,0,0.08);
-      background: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.85);
       cursor:pointer;
     }
-    .mini:hover{ background: rgba(255,255,255,0.95); }
+    .mini:hover{ background: rgba(255,255,255,0.98); }
 
     .footer{
       margin-top: 14px;
       font-size: 12.5px;
-      color: rgba(40,40,40,0.65);
+      color: rgba(40,40,40,0.62);
     }
 
     /* Success screen */
-    .success{
-      display:none;
-      animation: pop .35s ease both;
-    }
+    .success{ display:none; animation: pop .35s ease both; }
     @keyframes pop{
-      from{ transform: scale(.98); opacity:0 }
+      from{ transform: scale(.985); opacity:0 }
       to{ transform: scale(1); opacity:1 }
     }
-    .bigHeart{
-      font-size: 54px;
-      margin: 8px 0 10px;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.15));
+    .bigEmoji{
+      font-size: 56px;
+      margin: 10px 0 6px;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.12));
     }
 
-    canvas#confetti{
+    canvas#fx{
       position:fixed; inset:0; pointer-events:none;
     }
 
@@ -151,141 +168,35 @@
       font-size: 13px;
       opacity:0;
       transition: opacity .2s ease, transform .2s ease;
+      pointer-events:none;
     }
     .toast.show{ opacity:1; transform:translateX(-50%) translateY(-4px); }
   </style>
 </head>
 <body>
-  <canvas id="confetti"></canvas>
+  <canvas id="fx"></canvas>
 
   <main class="wrap" role="main" aria-live="polite">
     <section class="ask" id="ask">
-      <div class="badge">💌 Just for AAyushi</div>
-      <h1>AAyushi… will you be my Valentine? 💘</h1>
+      <div class="badge">💌 Just for Aayushi</div>
+      <h1>Aayushi… will you be my Valentine? 💘</h1>
       <p>
-        I tried to write something smooth… but honestly, you make my brain do little heart backflips.
-        So here’s a simple question with a very cute answer button 😄
+        I could write a whole paragraph… but the truth is simple:
+        you make my days feel warmer and my smiles a little easier.
+        So… one tiny click? 😄
       </p>
 
-      <!-- ONLY YES button -->
-      <button class="btn" id="yesBtn">Yes 💘</button>
+      <div class="btnRow">
+        <button class="btn" id="yesBtn">Yes 💘</button>
+        <button class="btn btnNo" id="noBtn" aria-label="No (not really an option)">No 🙃</button>
+      </div>
 
       <div class="smallRow">
         <button class="mini" id="copyLinkBtn" type="button">Copy shareable link</button>
       </div>
 
-      <div class="footer">Tip: Edit the message in the HTML if you want it more personal ✨</div>
+      <div class="footer">Tip: You can host this and just send the link ✨</div>
     </section>
 
     <section class="success" id="success">
-      <div class="badge">✅ Officially adorable</div>
-      <div class="bigHeart">💖</div>
-      <h1>YAYYY! It’s a date 💞</h1>
-      <p id="successText">AAyushi, you just made my whole day (and probably the next 365 too).</p>
-      <button class="btn" id="celebrateBtn">Celebrate 🎉</button>
-      <div class="footer">Screenshot this and send it back 😄</div>
-    </section>
-  </main>
-
-  <div class="toast" id="toast">Copied!</div>
-
-  <script>
-    // Floating hearts
-    const HEARTS = 18;
-    for (let i=0; i<HEARTS; i++){
-      const h = document.createElement("div");
-      h.className = "heart";
-      const left = Math.random()*100;
-      const dur = 6 + Math.random()*7;
-      const delay = Math.random()*-dur;
-      const size = 10 + Math.random()*18;
-      h.style.left = left + "vw";
-      h.style.animationDuration = dur + "s";
-      h.style.animationDelay = delay + "s";
-      h.style.width = size + "px";
-      h.style.height = size + "px";
-      h.style.opacity = (0.35 + Math.random()*0.55).toFixed(2);
-      document.body.appendChild(h);
-    }
-
-    // Confetti canvas
-    const canvas = document.getElementById("confetti");
-    const ctx = canvas.getContext("2d");
-    let W, H;
-    function resize(){
-      W = canvas.width = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", resize);
-    resize();
-
-    let confetti = [];
-    function burst(){
-      const count = 160;
-      for (let i=0; i<count; i++){
-        confetti.push({
-          x: W/2 + (Math.random()-0.5)*80,
-          y: H/2 + (Math.random()-0.5)*40,
-          vx: (Math.random()-0.5)*10,
-          vy: -Math.random()*10 - 4,
-          g: 0.22 + Math.random()*0.18,
-          r: 2 + Math.random()*4,
-          a: 1,
-          spin: (Math.random()-0.5)*0.25
-        });
-      }
-    }
-    function tick(){
-      ctx.clearRect(0,0,W,H);
-      confetti = confetti.filter(p => p.a > 0.02 && p.y < H+40);
-      for (const p of confetti){
-        p.vy += p.g;
-        p.x += p.vx;
-        p.y += p.vy;
-        p.a *= 0.985;
-        ctx.save();
-        ctx.globalAlpha = p.a;
-        ctx.translate(p.x, p.y);
-        ctx.rotate(p.spin);
-        const grd = ctx.createLinearGradient(-6,-6,6,6);
-        grd.addColorStop(0, "rgba(255,255,255,0.95)");
-        grd.addColorStop(1, "rgba(255,255,255,0.35)");
-        ctx.fillStyle = grd;
-        ctx.fillRect(-p.r, -p.r, p.r*2, p.r*2);
-        ctx.restore();
-      }
-      requestAnimationFrame(tick);
-    }
-    tick();
-
-    // Only YES flow
-    const ask = document.getElementById("ask");
-    const success = document.getElementById("success");
-    document.getElementById("yesBtn").addEventListener("click", () => {
-      ask.style.display = "none";
-      success.style.display = "block";
-      burst();
-    });
-
-    document.getElementById("celebrateBtn").addEventListener("click", () => burst());
-
-    // Copy link
-    const toast = document.getElementById("toast");
-    function showToast(msg){
-      toast.textContent = msg;
-      toast.classList.add("show");
-      setTimeout(()=>toast.classList.remove("show"), 1200);
-    }
-    document.getElementById("copyLinkBtn").addEventListener("click", async () => {
-      const base = location.origin + location.pathname;
-      const link = base + `?to=${encodeURIComponent("AAyushi")}&from=${encodeURIComponent("Me")}`;
-      try{
-        await navigator.clipboard.writeText(link);
-        showToast("Link copied 💌");
-      }catch(e){
-        showToast("Couldn’t auto-copy—copy from the address bar");
-      }
-    });
-  </script>
-</body>
-</html>
+      <div class="badge">✅ Officiall
