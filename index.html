@@ -2,281 +2,387 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>💘 For Aayushi</title>
   <meta name="theme-color" content="#ff4d6d" />
   <style>
     :root{
       --bg1:#ffebf3; --bg2:#ffe6cc;
-      --card:rgba(255,255,255,.82);
-      --text:#1f1f1f;
-      --shadow:0 18px 50px rgba(0,0,0,.14);
+      --card:rgba(255,255,255,.86);
+      --text:#141414; --muted:rgba(20,20,20,.68);
+      --shadow:0 18px 52px rgba(0,0,0,.14);
       --radius:26px; --pill:999px;
       --pink1:#ff4d8d; --pink2:#ff2d55;
-      --dark:#111;
+      --line:rgba(0,0,0,.08);
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      margin:0; min-height:100vh;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color:var(--text);
-      overflow:hidden;
       background:
-        radial-gradient(1200px 800px at 20% 20%, #fff 0%, transparent 60%),
-        radial-gradient(900px 700px at 80% 30%, #fff 0%, transparent 55%),
-        linear-gradient(135deg,var(--bg1),var(--bg2));
-    }
-
-    /* Floating emojis */
-    .hearts{position:fixed; inset:0; pointer-events:none; opacity:.5; z-index:0;}
-    .heart{
-      position:absolute; transform:translateY(110vh);
-      animation:floaty linear infinite;
-      will-change:transform,opacity; user-select:none;
-    }
-    @keyframes floaty{
-      0%{transform:translateY(110vh) translateX(0) rotate(0deg); opacity:0}
-      10%{opacity:1}
-      100%{transform:translateY(-20vh) translateX(var(--drift)) rotate(var(--rot)); opacity:0}
-    }
-
-    canvas#confetti{
-      position:fixed; inset:0; pointer-events:none; z-index:5;
-    }
-
-    .wrap{position:relative; z-index:1; min-height:100vh; display:grid; place-items:center; padding:18px;}
-    .card{
-      width:min(760px,92vw);
-      background:var(--card);
-      border:1px solid rgba(255,255,255,.55);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:26px 22px 20px;
-      text-align:center;
-      backdrop-filter:blur(10px);
-      -webkit-backdrop-filter:blur(10px);
-      position:relative;
+        radial-gradient(900px 700px at 25% 12%, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 60%),
+        radial-gradient(900px 700px at 75% 0%, rgba(255,255,255,.75) 0%, rgba(255,255,255,0) 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
       overflow:hidden;
-    }
-    h1{margin:0 0 8px; font-size:clamp(28px,5vw,44px); letter-spacing:-.02em;}
-    .sub{margin:0 auto 14px; max-width:60ch; font-size:16px; opacity:.9; line-height:1.45;}
-    .badge{
-      display:inline-block;
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(255,59,122,.12);
-      border:1px solid rgba(255,59,122,.22);
-      font-weight:650;
-      font-size:13px;
-      margin-bottom:12px;
+      padding: 18px;
     }
 
-    .playground{
+    /* Floating hearts background */
+    .heart{
+      position:absolute;
+      width:18px; height:18px;
+      transform: rotate(45deg);
+      background: rgba(255,255,255,0.85);
+      animation: floatUp linear infinite;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.10));
+      border-radius:4px;
+      pointer-events:none;
+    }
+    .heart:before,.heart:after{
+      content:"";
+      position:absolute;
+      width:18px; height:18px;
+      background: inherit;
+      border-radius:50%;
+    }
+    .heart:before{ left:-9px; top:0 }
+    .heart:after{ top:-9px; left:0 }
+    @keyframes floatUp{
+      from{ transform:translateY(45vh) translateX(0) rotate(45deg); opacity:0 }
+      10%{opacity:1}
+      to{ transform:translateY(-120vh) translateX(80px) rotate(45deg); opacity:0 }
+    }
+
+    canvas#fx{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+    }
+
+    .wrap{
       position:relative;
-      height:300px;
-      margin-top:10px;
-      border-radius:18px;
-      background:rgba(255,255,255,.65);
-      border:1px dashed rgba(0,0,0,.14);
+      width:min(640px, 94vw);
+      padding: 26px 18px;
+      border-radius: var(--radius);
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.70);
+      text-align:center;
+    }
+
+    .badge{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding: 9px 12px;
+      border-radius: var(--pill);
+      background: rgba(255,45,85,0.12);
+      color: var(--pink2);
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(26px, 5.5vw, 44px);
+      line-height: 1.08;
+      letter-spacing: -.2px;
+    }
+
+    p{
+      margin: 0 auto 16px;
+      max-width: 52ch;
+      color: var(--muted);
+      font-size: clamp(14.5px, 3.8vw, 16px);
+      line-height: 1.55;
+    }
+
+    .btn{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      padding: 14px 18px;
+      width: min(420px, 100%);
+      border-radius: 16px;
+      font-size: 18px;
+      font-weight: 900;
+      color: #fff;
+      background: linear-gradient(135deg, var(--pink2), var(--pink1));
+      box-shadow: 0 16px 32px rgba(255,45,85,0.30);
+      transform: translateY(0);
+      transition: transform .12s ease, box-shadow .12s ease;
+      position:relative;
       overflow:hidden;
       touch-action: manipulation;
     }
-
-    button{
-      appearance:none; border:none; cursor:pointer;
-      padding:14px 22px;
-      border-radius:var(--pill);
-      font-size:18px;
-      font-weight:800;
-      box-shadow:0 10px 22px rgba(0,0,0,.12);
-      transition:transform .14s ease, filter .12s ease, box-shadow .2s ease, left .18s ease, top .18s ease;
-      user-select:none; -webkit-tap-highlight-color:transparent;
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 20px 40px rgba(255,45,85,0.38); }
+    .btn:active{ transform: translateY(1px); box-shadow: 0 12px 26px rgba(255,45,85,0.25); }
+    .btn:focus-visible{ outline: 3px solid rgba(255,255,255,.95); outline-offset: 3px; }
+    .btn::after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), rgba(255,255,255,0) 60%);
+      transform: translateX(-42%) rotate(10deg);
+      transition: transform .5s ease;
+      pointer-events:none;
     }
-    button:hover{filter:brightness(1.02)}
-    button:active{transform:scale(.98)}
+    .btn:hover::after{ transform: translateX(5%) rotate(10deg); }
 
-    #yesBtn{
-      position:absolute;
-      left:50%;
-      top:46%;
-      transform:translate(-50%,-50%);
-      background:linear-gradient(135deg,var(--pink1),var(--pink2));
-      color:#fff;
-      z-index:2;
+    .miniRow{
+      margin-top: 14px;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
     }
-    #noBtn{
-      position:absolute;
-      left:50%;
-      top:64%;
-      transform:translate(-50%,-50%);
-      background:var(--dark);
-      color:#fff;
-      z-index:3;
+    .mini{
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.90);
+      cursor:pointer;
+      touch-action: manipulation;
     }
+    .mini:hover{ background: rgba(255,255,255,0.98); }
 
-    .hint{
-      margin-top:10px;
-      font-size:13px; opacity:.7;
-      transition: opacity .3s;
-      min-height: 18px;
+    .footer{
+      margin-top: 14px;
+      font-size: 12.5px;
+      color: rgba(20,20,20,0.55);
     }
 
-    /* Success screen */
-    .success{
-      display:none;
-      animation: pop .35s ease both;
-    }
+    /* Success */
+    .success{ display:none; animation: pop .35s ease both; }
     @keyframes pop{
-      from{ transform: scale(.98); opacity:0 }
+      from{ transform: scale(.985); opacity:0 }
       to{ transform: scale(1); opacity:1 }
     }
-    .bigHeart{
-      font-size: 58px;
-      margin: 6px 0 10px;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.15));
-      user-select:none;
+    .bigEmoji{
+      font-size: 56px;
+      margin: 10px 0 6px;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.12));
     }
-    .softRow{
-      display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
-      margin-top:12px;
+
+    /* Gift options (mobile-friendly) */
+    #giftPanel{
+      display:none;
+      margin-top: 16px;
+      text-align:left;
+      border-top: 1px dashed var(--line);
+      padding-top: 14px;
     }
-    .miniBtn{
-      font-size:13px;
-      padding:10px 12px;
-      border-radius:14px;
-      background:rgba(255,255,255,.9);
-      border:1px solid rgba(0,0,0,.10);
-      box-shadow:none;
-      font-weight:700;
+    .giftTitle{
+      margin: 0 0 10px;
+      color: rgba(20,20,20,0.78);
+      font-weight: 900;
+      text-align:center;
     }
-    .miniBtn:hover{background:#fff}
+    .optionsGrid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (max-width: 440px){
+      .optionsGrid{ grid-template-columns: 1fr; }
+      .wrap{ padding: 22px 16px; }
+    }
+    .optionCard{
+      text-align:left;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.92);
+      border-radius: 16px;
+      padding: 12px 12px;
+      cursor: pointer;
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+      touch-action: manipulation;
+      min-height: 78px; /* bigger tap area */
+    }
+    .optionCard:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+    }
+    .optionCard.selected{
+      border-color: rgba(255,45,85,0.55);
+      box-shadow: 0 18px 34px rgba(255,45,85,0.18);
+    }
+    .optEmoji{ font-size: 22px; margin-bottom: 6px; }
+    .optTitle{ font-weight: 950; color:#111; }
+    .optSub{ font-size: 12.5px; color: rgba(20,20,20,0.60); margin-top: 2px; }
+
+    .giftActions{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .statusBox{
+      display:none;
+      margin-top: 12px;
+      text-align:center;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.92);
+      font-weight: 900;
+      color:#111;
+    }
+    .subStatus{
+      display:none;
+      margin-top: 8px;
+      text-align:center;
+      font-size: 13px;
+      color: rgba(20,20,20,0.62);
+    }
 
     .toast{
-      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform:translateX(-50%);
       background: rgba(0,0,0,0.78);
       color:#fff;
       padding:10px 12px;
       border-radius: 12px;
       font-size: 13px;
       opacity:0;
-      z-index:50;
       transition: opacity .2s ease, transform .2s ease;
+      pointer-events:none;
+      z-index: 20;
     }
     .toast.show{ opacity:1; transform:translateX(-50%) translateY(-4px); }
-  
-    /* Celebrate burst emojis */
-    .popEmoji{
-      position:fixed;
-      left:50%; top:50%;
-      transform: translate(-50%,-50%);
-      font-size: 18px;
-      pointer-events:none;
-      filter: drop-shadow(0 10px 14px rgba(0,0,0,.12));
-      animation: emojiFly 900ms ease-out forwards;
-      will-change: transform, opacity;
-      z-index: 50;
-    }
-    @keyframes emojiFly{
-      from{ opacity:1; transform: translate(-50%,-50%) scale(1); }
-      to{
-        opacity:0;
-        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
-                   rotate(var(--rot)) scale(1.25);
-      }
-    }
-
   </style>
 </head>
 
 <body>
-  <canvas id="confetti"></canvas>
-  <div class="hearts" id="hearts"></div>
+  <canvas id="fx"></canvas>
 
-  <div class="wrap">
-    <div class="card" id="cardRoot">
+  <main class="wrap" role="main" aria-live="polite">
+    <!-- ASK -->
+    <section class="ask" id="ask">
+      <div class="badge">💌 Just for Aayushi</div>
+      <h1>Aayushi… will you be my Valentine? 💘</h1>
+      <p>
+        I tried to write something “cool”… but honestly:
+        you make my days feel softer and my smiles feel easier.
+        So… one tiny click? 😄
+      </p>
 
-      <section id="ask">
-        <div style="font-size:42px; user-select:none; margin-bottom:6px;">💘</div>
-        <div class="badge" id="badge">Aayushi exclusive</div>
-        <h1 id="titleLine">Aayushi… will you be my Valentine? 💖</h1>
-        <p class="sub" id="subLine">
-          I tried to act normal… but you’re too cute for that. So I made a tiny website.
-          One question. Two buttons. Only one of them behaves 😄
-        </p>
+      <!-- ONLY YES -->
+      <button class="btn" id="yesBtn">Yes 💘</button>
 
-        <div class="playground" id="arena">
-          <button id="yesBtn" aria-label="Yes">YES 💘</button>
-          <button id="noBtn" aria-label="No">NO 🙃</button>
+      <div class="miniRow">
+        <button class="mini" id="copyLinkBtn" type="button">Copy shareable link</button>
+      </div>
+
+      <div class="footer">Works great on phone too ✨</div>
+    </section>
+
+    <!-- SUCCESS -->
+    <section class="success" id="success">
+      <div class="badge">✅ Officially adorable</div>
+      <div class="bigEmoji" id="bigEmoji">💖</div>
+      <h1>YAYYY! It’s a date 💞</h1>
+      <p id="successText">Aayushi, you just made my whole day (and probably the next 365 too).</p>
+
+      <button class="btn" id="celebrateBtn">Celebrate 🎉</button>
+
+      <!-- GIFT OPTIONS (appears after Celebrate) -->
+      <div id="giftPanel">
+        <div class="giftTitle">Okay Aayushi 😄 pick what you want:</div>
+
+        <div class="optionsGrid" id="giftOptions">
+          <button class="optionCard" data-gift="Flowers 💐">
+            <div class="optEmoji">💐</div>
+            <div class="optTitle">Flowers</div>
+            <div class="optSub">classic + pretty</div>
+          </button>
+
+          <button class="optionCard" data-gift="Chocolate 🍫">
+            <div class="optEmoji">🍫</div>
+            <div class="optTitle">Chocolate</div>
+            <div class="optSub">sweet tooth approved</div>
+          </button>
+
+          <button class="optionCard" data-gift="Small teddy 🧸">
+            <div class="optEmoji">🧸</div>
+            <div class="optTitle">Small teddy</div>
+            <div class="optSub">tiny + cute</div>
+          </button>
+
+          <button class="optionCard" data-gift="Flowers + Ice cream 💐🍦">
+            <div class="optEmoji">💐🍦</div>
+            <div class="optTitle">Flowers + Ice cream</div>
+            <div class="optSub">best combo</div>
+          </button>
         </div>
 
-        <div class="hint" id="hintText">Tip: the “NO” button is allergic to commitment.</div>
-
-        <div class="softRow">
-          <button class="miniBtn" id="copyLinkBtn" type="button">Copy shareable link</button>
+        <div class="giftActions">
+          <button class="btn" id="confirmGiftBtn">Confirm ✅</button>
+          <button class="mini" id="copyGiftBtn" type="button" style="display:none;">Copy message</button>
         </div>
-      </section>
 
-      <section class="success" id="success" aria-live="polite">
-        <div class="badge">✅ Locked in</div>
-        <div class="bigHeart">💖</div>
-        <h1>YAYYY! It’s a date 💞</h1>
-        <p class="sub" id="successText">
-          Aayushi, you just made my whole day (and probably my whole month too).
-        </p>
+        <div class="statusBox" id="giftResult"></div>
+        <div class="subStatus" id="submitStatus"></div>
 
-        <div class="softRow">
-          <button id="celebrateBtn">Celebrate 🎉</button>
-          <button class="miniBtn" id="backBtn" type="button">Back</button>
+        <div class="footer" style="text-align:center; margin-top:12px;">
+          (Auto-sends to Tirth after confirm ✅)
         </div>
-      </section>
-
-    </div>
-  </div>
+      </div>
+    </section>
+  </main>
 
   <div class="toast" id="toast">Copied!</div>
 
 <script>
-  // --- Personalization (optional): ?to=Aayushi&from=Tirth ---
+  /***********************
+   * CONFIG
+   ***********************/
+  const DEFAULT_FROM = "Tirth";
+  const FORM_ENDPOINT = "https://formspree.io/f/xkovjdwn"; // ✅ your Formspree endpoint
+
+  /***********************
+   * URL PARAMS
+   ***********************/
   const params = new URLSearchParams(location.search);
-  const toName = params.get("to") || "Aayushi";
-  const fromName = params.get("from") || "Me";
+  const fromName = params.get("from") || DEFAULT_FROM;
+  const toName = "Aayushi";
 
-  const titleLine = document.getElementById("titleLine");
-  const subLine = document.getElementById("subLine");
-  const successText = document.getElementById("successText");
-  const badge = document.getElementById("badge");
-
-  badge.textContent = `${toName} exclusive`;
-  titleLine.textContent = `${toName}… will you be my Valentine? 💖`;
-  successText.textContent = `${toName}, you just made ${fromName} ridiculously happy 💖`;
-
-  // --- Floating hearts background ---
-  const heartsEl = document.getElementById('hearts');
-  const heartChars = ["💖","💘","💕","💗","💓","💝","❤️","💞","✨","🥰"];
-  function makeHeart(){
-    const s = document.createElement('div');
-    s.className='heart';
-    s.textContent = heartChars[Math.floor(Math.random()*heartChars.length)];
+  /***********************
+   * BACKGROUND HEARTS
+   ***********************/
+  const HEARTS = 18;
+  for (let i=0; i<HEARTS; i++){
+    const h = document.createElement("div");
+    h.className = "heart";
     const left = Math.random()*100;
-    const dur = 6 + Math.random()*6;
-    const drift = (Math.random()*140-70).toFixed(0)+'px';
-    const rot = (Math.random()*220-110).toFixed(0)+'deg';
-    const size = 16 + Math.random()*20;
-    s.style.left = left+'vw';
-    s.style.animationDuration = dur+'s';
-    s.style.setProperty('--drift', drift);
-    s.style.setProperty('--rot', rot);
-    s.style.fontSize = size+'px';
-    heartsEl.appendChild(s);
-    setTimeout(()=>s.remove(), dur*1000);
+    const dur = 6 + Math.random()*7;
+    const delay = Math.random()*-dur;
+    const size = 10 + Math.random()*18;
+    h.style.left = left + "vw";
+    h.style.animationDuration = dur + "s";
+    h.style.animationDelay = delay + "s";
+    h.style.width = size + "px";
+    h.style.height = size + "px";
+    h.style.opacity = (0.35 + Math.random()*0.55).toFixed(2);
+    document.body.appendChild(h);
   }
-  for(let i=0;i<18;i++) setTimeout(makeHeart, i*180);
-  setInterval(makeHeart, 420);
 
-  // --- Confetti (canvas particles) ---
-  const canvas = document.getElementById("confetti");
+  /***********************
+   * CANVAS FX
+   ***********************/
+  const canvas = document.getElementById("fx");
   const ctx = canvas.getContext("2d");
   let W, H;
+
   function resize(){
     W = canvas.width = window.innerWidth;
     H = canvas.height = window.innerHeight;
@@ -284,207 +390,254 @@
   window.addEventListener("resize", resize);
   resize();
 
-  let confetti = [];
-  function burst(){
-    const count = 180;
+  const confetti = [];
+  const bursts = [];
+
+  function confettiBurst(x, y){
+    const count = 140;
     for (let i=0; i<count; i++){
-      // Cute confetti palette (mostly pinks + a few warm tones)
-      const h = (Math.random() < 0.7)
-        ? (330 + Math.random()*30)          // pink range
-        : (15 + Math.random()*45);          // warm range
       confetti.push({
-        x: W/2 + (Math.random()-0.5)*90,
-        y: H/2 + (Math.random()-0.5)*50,
-        vx: (Math.random()-0.5)*11,
-        vy: -Math.random()*11 - 4,
-        g: 0.20 + Math.random()*0.20,
-        r: 2 + Math.random()*5,
+        x: x + (Math.random()-0.5)*90,
+        y: y + (Math.random()-0.5)*40,
+        vx: (Math.random()-0.5)*10,
+        vy: -Math.random()*10 - 4,
+        g: 0.22 + Math.random()*0.18,
+        r: 2 + Math.random()*4,
         a: 1,
-        spin: (Math.random()-0.5)*0.35,
-        h
+        spin: (Math.random()-0.5)*0.25
       });
     }
   }
+
+  function emojiBurst(x, y){
+    const emojis = ["💖","💘","💞","✨","😍","🥰","💝","🌸"];
+    for (let i=0; i<26; i++){
+      bursts.push({
+        x, y,
+        vx: (Math.random()-0.5)*8,
+        vy: -Math.random()*7 - 3,
+        g: 0.18 + Math.random()*0.12,
+        a: 1,
+        rot: (Math.random()-0.5)*0.3,
+        size: 18 + Math.random()*14,
+        char: emojis[Math.floor(Math.random()*emojis.length)]
+      });
+    }
+  }
+
+  function multiCelebrate(){
+    const cx = W/2, cy = H/2;
+    confettiBurst(cx, cy);
+    emojiBurst(cx, cy);
+    setTimeout(()=>{ confettiBurst(cx, cy-40); emojiBurst(cx, cy-40); }, 180);
+    setTimeout(()=>{ confettiBurst(cx, cy+20); emojiBurst(cx, cy+20); }, 360);
+  }
+
   function tick(){
     ctx.clearRect(0,0,W,H);
-    confetti = confetti.filter(p => p.a > 0.02 && p.y < H+40);
-    for (const p of confetti){
+
+    for (let i=confetti.length-1; i>=0; i--){
+      const p = confetti[i];
       p.vy += p.g;
       p.x += p.vx;
       p.y += p.vy;
       p.a *= 0.985;
+
+      if (p.a < 0.02 || p.y > H+50){
+        confetti.splice(i,1);
+        continue;
+      }
+
       ctx.save();
       ctx.globalAlpha = p.a;
       ctx.translate(p.x, p.y);
       ctx.rotate(p.spin);
-      ctx.fillStyle = `hsl(${p.h} 95% 70%)`;
+
+      const grd = ctx.createLinearGradient(-6,-6,6,6);
+      grd.addColorStop(0, "rgba(255,255,255,0.95)");
+      grd.addColorStop(1, "rgba(255,255,255,0.35)");
+      ctx.fillStyle = grd;
       ctx.fillRect(-p.r, -p.r, p.r*2, p.r*2);
       ctx.restore();
     }
+
+    for (let i=bursts.length-1; i>=0; i--){
+      const b = bursts[i];
+      b.vy += b.g;
+      b.x += b.vx;
+      b.y += b.vy;
+      b.a *= 0.982;
+
+      if (b.a < 0.03 || b.y > H+80){
+        bursts.splice(i,1);
+        continue;
+      }
+
+      ctx.save();
+      ctx.globalAlpha = b.a;
+      ctx.translate(b.x, b.y);
+      ctx.rotate(b.rot);
+      ctx.font = `${b.size}px system-ui, Apple Color Emoji, Segoe UI Emoji`;
+      ctx.fillText(b.char, -b.size/2, b.size/2);
+      ctx.restore();
+    }
+
     requestAnimationFrame(tick);
   }
   tick();
 
-  // --- New YES/NO workflow ---
-  const arena = document.getElementById("arena");
-  const yesBtn = document.getElementById("yesBtn");
-  const noBtn  = document.getElementById("noBtn");
-  const hintText = document.getElementById("hintText");
+  /***********************
+   * UI FLOW
+   ***********************/
   const ask = document.getElementById("ask");
   const success = document.getElementById("success");
+  const yesBtn = document.getElementById("yesBtn");
   const celebrateBtn = document.getElementById("celebrateBtn");
-  const backBtn = document.getElementById("backBtn");
-  const bigHeart = document.querySelector(".bigHeart");
+  const bigEmoji = document.getElementById("bigEmoji");
+  const successText = document.getElementById("successText");
 
-  let noDodges = 0;
+  const giftPanel = document.getElementById("giftPanel");
+  const giftOptions = document.getElementById("giftOptions");
+  const confirmGiftBtn = document.getElementById("confirmGiftBtn");
+  const giftResult = document.getElementById("giftResult");
+  const submitStatus = document.getElementById("submitStatus");
+  const copyGiftBtn = document.getElementById("copyGiftBtn");
 
-  function placeNoRandom(){
-    const a = arena.getBoundingClientRect();
-    const b = noBtn.getBoundingClientRect();
-    const margin = 10;
+  let clickCount = 0;
+  let selectedGift = "";
 
-    const maxX = Math.max(margin, a.width - b.width - margin);
-    const maxY = Math.max(margin, a.height - b.height - margin);
-
-    const x = margin + Math.random() * (maxX - margin);
-    const y = margin + Math.random() * (maxY - margin);
-
-    noBtn.style.left = x + "px";
-    noBtn.style.top  = y + "px";
-    noBtn.style.transform = "translate(0,0)"; // we are using absolute px positioning now
-  }
-
-  function dodgeNo(){
-    noDodges++;
-    placeNoRandom();
-
-    // Make NO a bit smaller each time (until tiny)
-    const scale = Math.max(0.55, 1 - noDodges*0.08);
-    noBtn.style.transform = `translate(0,0) scale(${scale})`;
-
-    // Cute taunts
-    const lines = [
-      "Nope 😌",
-      "Nice try 😂",
-      "Not today 🙃",
-      "You can do better… hit YES 😇",
-      "The NO button is shy 🫣",
-      "It ran away again 🏃‍♀️💨"
-    ];
-    hintText.textContent = lines[Math.min(lines.length-1, noDodges % lines.length)];
-  }
-
-  // NO dodges on hover, touch, and pointer down (so it basically can’t be clicked)
-  noBtn.addEventListener("mouseenter", dodgeNo);
-  noBtn.addEventListener("mousedown", (e)=>{ e.preventDefault(); dodgeNo(); });
-  noBtn.addEventListener("touchstart", (e)=>{ e.preventDefault(); dodgeNo(); }, {passive:false});
-  arena.addEventListener("touchstart", (e)=>{
-    const t = e.touches && e.touches[0];
-    if (!t) return;
-    // if finger gets close to NO, dodge
-    const nb = noBtn.getBoundingClientRect();
-    const dist = Math.hypot(t.clientX - (nb.left+nb.width/2), t.clientY - (nb.top+nb.height/2));
-    if (dist < 140) dodgeNo();
-  }, {passive:false});
-
-  // YES wins
-
-  // --- Celebrate button should feel like a celebration ---
-  let celebrated = 0;
-  const celebrateLines = [
-    () => `${toName}, I’d choose you in every universe 💞`,
-    () => `Ok wow… heart officially stolen 😵‍💫💘`,
-    () => `You + me = peak cuteness 🥰`,
-    () => `Reminder: you’re my favorite person 💖`,
-    () => `Date idea: coffee + long walk + you smiling at me 💝`,
-    () => `I’m smiling like an idiot right now 😄✨`
+  const emojiCycle = ["💖","💘","💞","😍","🥰","💝","✨","🌸"];
+  const lineCycle = [
+    `Aayushi, you just made ${fromName} smile like an idiot 😄`,
+    "Okayyy this is officially cute now 💞",
+    "You’re making this way too adorable 😍",
+    "More confetti. More love. Yes. 💖",
+    "If happiness had a button… it’s this one 🥰",
+    "This is your fault (in the best way) 💝"
   ];
 
-  function emojiBurst(){
-    const count = 18;
-    for (let i=0; i<count; i++){
-      const e = document.createElement("div");
-      e.className = "popEmoji";
-      e.textContent = heartChars[Math.floor(Math.random()*heartChars.length)];
-      e.style.setProperty("--dx", `${(Math.random()-0.5)*320}px`);
-      e.style.setProperty("--dy", `${(-Math.random()*260 - 70)}px`);
-      e.style.setProperty("--rot", `${(Math.random()-0.5)*220}deg`);
-      e.style.fontSize = `${14 + Math.random()*16}px`;
-      document.body.appendChild(e);
-      e.addEventListener("animationend", ()=>e.remove(), {once:true});
-    }
-  }
-
-  function celebrate(){
-    celebrated++;
-    // More visible effect than a single burst
-    burst(); emojiBurst();
-    setTimeout(()=>{ burst(); }, 160);
-    setTimeout(()=>{ burst(); emojiBurst(); }, 320);
-
-    // Tiny haptic on phones (if allowed)
-    try { if (navigator.vibrate) navigator.vibrate([25, 35, 25]); } catch(e){}
-
-    // Rotate the heart + a cute line
-    const heartPool = ["💖","💘","💝","💕","💞","❤️","✨","🥰","😍"];
-    if (bigHeart) bigHeart.textContent = heartPool[Math.floor(Math.random()*heartPool.length)];
-
-    const pick = celebrateLines[Math.floor(Math.random()*celebrateLines.length)];
-    successText.textContent = pick();
-
-    // Button text evolves
-    celebrateBtn.textContent = celebrated === 1 ? "Celebrate again 🎉" : "MORE 🎉";
-  }
-
-
-  yesBtn.addEventListener("click", ()=>{
-    ask.style.display = "none";
-    success.style.display = "block";
-    burst();
-    emojiBurst();
-  });
-
-  celebrateBtn.addEventListener("click", celebrate);
-backBtn.addEventListener("click", ()=>{
-    success.style.display = "none";
-    ask.style.display = "block";
-    hintText.textContent = "Tip: the “NO” button is allergic to commitment.";
-  });
-
-  // Put NO in a slightly offset position (so it’s obvious at first)
-  // Switch NO to pixel positioning once arena is laid out
-  function initPositions(){
-    // convert initial centered placement to absolute px inside arena
-    const a = arena.getBoundingClientRect();
-    const nb = noBtn.getBoundingClientRect();
-    const x = (a.width/2) - (nb.width/2);
-    const y = (a.height*0.64) - (nb.height/2);
-    noBtn.style.left = x + "px";
-    noBtn.style.top  = y + "px";
-    noBtn.style.transform = "translate(0,0)";
-  }
-  window.addEventListener("load", initPositions);
-  window.addEventListener("resize", initPositions);
-
-  // Copy link (with to/from baked in)
-  const toast = document.getElementById("toast");
   function showToast(msg){
+    const toast = document.getElementById("toast");
     toast.textContent = msg;
     toast.classList.add("show");
     setTimeout(()=>toast.classList.remove("show"), 1200);
   }
+
+  function goYes(){
+    ask.style.display = "none";
+    success.style.display = "block";
+    multiCelebrate();
+  }
+  yesBtn.addEventListener("click", goYes);
+
+  celebrateBtn.addEventListener("click", () => {
+    clickCount++;
+    multiCelebrate();
+
+    if (giftPanel.style.display === "none") {
+      giftPanel.style.display = "block";
+      setTimeout(() => giftPanel.scrollIntoView({behavior:"smooth", block:"start"}), 80);
+    }
+
+    bigEmoji.textContent = emojiCycle[clickCount % emojiCycle.length];
+    successText.textContent = lineCycle[clickCount % lineCycle.length];
+
+    const btnTexts = ["Celebrate 🎉","Again! 🎊","One more 😄","Okay last one 😅","Moreee 💖"];
+    celebrateBtn.textContent = btnTexts[clickCount % btnTexts.length];
+  });
+
+  function setSelectedGift(btn){
+    [...giftOptions.querySelectorAll(".optionCard")].forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+    selectedGift = btn.dataset.gift || "";
+  }
+
+  giftOptions.addEventListener("click", (e) => {
+    const btn = e.target.closest(".optionCard");
+    if (!btn) return;
+    setSelectedGift(btn);
+    emojiBurst(W/2, H/2 - 20);
+  });
+
+  function buildChoiceMessage(){
+    return `Aayushi chose: ${selectedGift} 💖 (From: ${fromName})`;
+  }
+
+  async function submitChoice(message){
+    try{
+      submitStatus.style.display = "block";
+      submitStatus.textContent = "Sending to Tirth… ✨";
+
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          to: toName,
+          from: fromName,
+          gift: selectedGift,
+          message,
+          page: location.href,
+          time: new Date().toISOString()
+        })
+      });
+
+      if (!res.ok) throw new Error("Non-200 response");
+      return true;
+    }catch(e){
+      return false;
+    }
+  }
+
+  confirmGiftBtn.addEventListener("click", async () => {
+    if (!selectedGift) {
+      giftResult.style.display = "block";
+      giftResult.textContent = "Pick one first 😄👇";
+      emojiBurst(W/2, H/2);
+      return;
+    }
+
+    const msg = buildChoiceMessage();
+
+    giftResult.style.display = "block";
+    giftResult.textContent = `Locked in ✅ ${msg}`;
+    copyGiftBtn.style.display = "inline-flex";
+
+    multiCelebrate();
+    emojiBurst(W/2, H/2 - 40);
+
+    const ok = await submitChoice(msg);
+    submitStatus.style.display = "block";
+    submitStatus.textContent = ok
+      ? "Sent ✅ (Tirth will receive it by email)"
+      : "Couldn’t auto-send 😕 Try again or copy the message.";
+
+    if (ok) showToast("Sent ✅");
+    else showToast("Send failed 😕");
+  });
+
+  copyGiftBtn.addEventListener("click", async () => {
+    const msg = giftResult.textContent.replace("Locked in ✅ ", "");
+    try{
+      await navigator.clipboard.writeText(msg);
+      showToast("Copied 💌");
+    }catch(e){
+      showToast("Copy manually");
+    }
+  });
+
+  /***********************
+   * COPY SHAREABLE LINK
+   ***********************/
   document.getElementById("copyLinkBtn").addEventListener("click", async () => {
     const base = location.origin + location.pathname;
-    const link = base + `?to=${encodeURIComponent(toName)}&from=${encodeURIComponent(fromName)}`;
+    const link = base + `?from=${encodeURIComponent(fromName)}`;
     try{
       await navigator.clipboard.writeText(link);
       showToast("Link copied 💌");
     }catch(e){
-      showToast("Couldn’t auto-copy—copy from the address bar");
+      showToast("Copy from address bar");
     }
   });
 </script>
 </body>
 </html>
-
-<!--hh-->
